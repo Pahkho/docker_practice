@@ -33,6 +33,26 @@ $ sudo yum remove docker \
 $ sudo yum install -y yum-utils
 ```
 
+如果在使用 yum 安装时遭遇了相关错误，其原因在于所使用的 CentOS 7 仓库已被归档，当前的镜像地址无法获取到所需的元数据文件。CentOS 7的官方仓库自 2024 年 6 月 30 日起便已停止维护。所以，运用最新的 CentOS 7 官方仓库很可能会出现问题。
+
+例如:
+```bash
+Loading mirror speeds from cached hostfile
+Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=stock error was
+14: curl#6 - "Could not resolve host: mirrorlist.centos.org; 未知的错误"
+```
+
+使用阿里云镜像源
+```bash
+wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
+```
+
+建议再执行下刷新缓存
+```bash
+sudo yum clean all
+sudo yum makecache
+```
+
 鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。
 
 执行下面的命令添加 `yum` 软件源：
